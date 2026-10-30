@@ -29,13 +29,13 @@ tokio-util = "0.7"
 futures = { version = "0.3", default-features = false, features = ["std", "async-await"] }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
 jsonwebtoken = { version = "11", default-features = false, features = ["rust_crypto"] }
-ed25519-dalek = { version = "2", features = ["pkcs8", "pem"] }
+ed25519-dalek = { version = "3", features = ["pkcs8", "pem"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-sha2 = "0.10"
-base64 = "0.22"
+sha2 = "0.11"
+base64 = "0.23"
 hex = "0.4"
-rand = "0.9"
+rand = "0.10"
 httpdate = "1"
 percent-encoding = "2"
 thiserror = "2"
@@ -50,7 +50,7 @@ apple-native-keyring-store = { version = "1", features = ["keychain"] }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 windows-native-keyring-store = "1"
-winreg = "0.55"
+winreg = "0.56"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 dbus-secret-service-keyring-store = { version = "1", features = ["crypto-rust", "vendored"] }
@@ -64,7 +64,7 @@ tauri = { version = "2.12", features = ["test"] }
 tokio = { version = "1.47", features = ["rt", "rt-multi-thread", "time", "sync", "macros", "test-util"] }
 wiremock = "0.6"
 tempfile = "3"
-toml = "0.9"
+toml = "1.1"
 
 [workspace]
 members = ["examples/tauri-app/src-tauri"]
