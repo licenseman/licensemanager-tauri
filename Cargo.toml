@@ -1,0 +1,82 @@
+[package]
+name = "tauri-plugin-licensemanager"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.90"
+description = "Tauri plugin for licensemanager.dev: license key activation, offline tokens and background renewal"
+license = "MIT"
+repository = "https://github.com/licenseman/licensemanager-tauri"
+homepage = "https://licensemanager.dev/docs/tauri"
+documentation = "https://docs.rs/tauri-plugin-licensemanager"
+readme = "README.md"
+keywords = ["tauri", "tauri-plugin", "license", "licensing", "license-key"]
+categories = ["authentication", "gui"]
+links = "tauri-plugin-licensemanager"
+include = ["/src", "/build.rs", "/permissions", "/README.md", "/LICENSE"]
+
+[package.metadata.docs.rs]
+all-features = true
+targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc"]
+
+[features]
+# Test hooks (fake transport, secret backend and clock, storage dirs). Not part of the semver API.
+test-util = []
+
+[dependencies]
+tauri = { version = "2.12", default-features = false }
+tokio = { version = "1.47", features = ["rt", "time", "sync", "macros", "process", "fs"] }
+tokio-util = "0.7"
+futures = { version = "0.3", default-features = false, features = ["std", "async-await"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+jsonwebtoken = { version = "11", default-features = false, features = ["rust_crypto"] }
+ed25519-dalek = { version = "2", features = ["pkcs8", "pem"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+base64 = "0.22"
+hex = "0.4"
+rand = "0.9"
+httpdate = "1"
+percent-encoding = "2"
+thiserror = "2"
+gethostname = "1"
+mac_address = "1"
+
+[target.'cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))'.dependencies]
+keyring-core = "1"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+apple-native-keyring-store = { version = "1", features = ["keychain"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-native-keyring-store = "1"
+winreg = "0.55"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+dbus-secret-service-keyring-store = { version = "1", features = ["crypto-rust", "vendored"] }
+linux-keyutils-keyring-store = "1"
+
+[build-dependencies]
+tauri-plugin = { version = "2.5", features = ["build"] }
+
+[dev-dependencies]
+tauri = { version = "2.12", features = ["test"] }
+tokio = { version = "1.47", features = ["rt", "rt-multi-thread", "time", "sync", "macros", "test-util"] }
+wiremock = "0.6"
+tempfile = "3"
+toml = "0.9"
+
+[workspace]
+members = ["examples/tauri-app/src-tauri"]
+
+[[test]]
+name = "api"
+required-features = ["test-util"]
+
+[[test]]
+name = "compat"
+required-features = ["test-util"]
+
+[[test]]
+name = "keyring"
+required-features = ["test-util"]

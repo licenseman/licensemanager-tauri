@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-is-clock-tampered"
+description = "Enables the is_clock_tampered command without any pre-configured scope."
+commands.allow = ["is_clock_tampered"]
+
+[[permission]]
+identifier = "deny-is-clock-tampered"
+description = "Denies the is_clock_tampered command without any pre-configured scope."
+commands.deny = ["is_clock_tampered"]

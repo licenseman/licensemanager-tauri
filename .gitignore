@@ -1,0 +1,10 @@
+node_modules/
+dist-js/
+dist/
+coverage/
+target/
+lcov.info
+*.log
+.DS_Store
+.idea/
+examples/tauri-app/src-tauri/gen/schemas/

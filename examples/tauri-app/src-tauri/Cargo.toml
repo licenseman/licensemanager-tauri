@@ -1,0 +1,18 @@
+[package]
+name = "tauri-app-example"
+version = "0.1.0"
+description = "Example app for tauri-plugin-licensemanager"
+edition = "2021"
+publish = false
+
+[lib]
+name = "tauri_app_example_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2.12", features = [] }
+tauri-plugin-licensemanager = { path = "../../.." }
+tauri-plugin-opener = "2"

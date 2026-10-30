@@ -1,0 +1,5 @@
+packages:
+  - examples/tauri-app
+
+allowBuilds:
+  esbuild: true

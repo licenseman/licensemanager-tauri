@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>License Manager Example</title>
+		<link rel="stylesheet" href="/src/style.css" />
+		<script type="module" src="/src/main.ts"></script>
+	</head>
+	<body>
+		<main>
+			<p id="loading">Checking your license…</p>
+
+			<section id="activation" hidden>
+				<h1>Activate</h1>
+				<form id="activation-form">
+					<input id="key" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" autocomplete="off" />
+					<button type="submit">Activate</button>
+				</form>
+				<p id="activation-error" class="error"></p>
+			</section>
+
+			<section id="locked" hidden>
+				<h1 id="locked-title">License locked</h1>
+				<p id="locked-message"></p>
+				<button id="retry" type="button">Check again</button>
+				<button id="change-key" type="button">Use another key</button>
+				<button id="portal" type="button">Manage my license</button>
+			</section>
+
+			<section id="app" hidden>
+				<h1>Licensed</h1>
+				<p id="license-info"></p>
+				<p id="offline-info"></p>
+				<button id="premium" type="button">Run premium feature</button>
+				<p id="premium-result"></p>
+				<button id="portal-app" type="button">Manage my license</button>
+			</section>
+		</main>
+	</body>
+</html>

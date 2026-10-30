@@ -1,0 +1,21 @@
+"$schema" = "schemas/schema.json"
+
+[default]
+description = """
+Default permissions for the licensemanager plugin: everything an activation
+screen and locked screens need. The full license key and the machine
+fingerprint are not included; grant `licensemanager:allow-get-license-key` or
+`licensemanager:allow-get-fingerprint` explicitly if a window needs them.
+"""
+permissions = [
+  "allow-get-state",
+  "allow-ready",
+  "allow-get-license",
+  "allow-set-license-key",
+  "allow-refresh",
+  "allow-get-offline-state",
+  "allow-get-latest-allowed-version",
+  "allow-get-portal-url",
+  "allow-is-clock-tampered",
+  "allow-get-license-key-hint",
+]
