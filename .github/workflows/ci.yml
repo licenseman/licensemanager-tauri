@@ -134,9 +134,9 @@ jobs:
 
   compat:
     runs-on: ubuntu-latest
-    env:
-      COMPAT_DIR: ${{ runner.temp }}/lm-compat
     steps:
+      # `runner.temp` isn't available in job-level `env`.
+      - run: echo "COMPAT_DIR=$RUNNER_TEMP/lm-compat" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2

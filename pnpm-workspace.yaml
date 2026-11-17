@@ -1,4 +1,6 @@
 packages:
+  # The root package is the one released; changesets only sees it when listed.
+  - "."
   - examples/tauri-app
 
 allowBuilds:
