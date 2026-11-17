@@ -1,6 +1,6 @@
 {
 	"name": "@licenseman/tauri",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Tauri SDK for licensemanager.dev (JS bindings of tauri-plugin-licensemanager)",
 	"license": "MIT",
 	"repository": {

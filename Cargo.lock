@@ -4681,7 +4681,7 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-licensemanager"
-version = "0.0.0"
+version = "1.0.0"
 dependencies = [
  "apple-native-keyring-store",
  "base64 0.23.1",
