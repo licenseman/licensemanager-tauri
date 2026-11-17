@@ -989,7 +989,9 @@ async fn honours_a_custom_async_fingerprint_function() {
     assert!(fp.starts_with(&format!("{}:", hash_machine_value("custom"))));
 }
 
-#[tokio::test(start_paused = true)]
+// Real time: with a paused clock, the timeout on reading the machine id (a
+// subprocess on macOS) can fire before it answers, making the two reads differ.
+#[tokio::test]
 async fn uses_the_native_machine_id_by_default() {
     let h = Harness::new();
     let lm = h.make_with(|o| o.fingerprint = None);
