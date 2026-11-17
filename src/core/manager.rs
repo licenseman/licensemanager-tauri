@@ -23,7 +23,7 @@ use super::retry::{with_retry, RetryPolicy, BACKGROUND_RETRY, INTERACTIVE_RETRY}
 use super::state::{locked_state, LicenseState, OfflineState};
 use super::store::{default_backend, SecureStore};
 use super::token::{compute_refresh_at, TokenPayload, TokenVerifier, ValidatedToken};
-use super::transport::{ReqwestTransport, Transport};
+use super::transport::{self, ReqwestTransport, Transport};
 use super::version::is_version_allowed;
 
 const INSTALL_ID_KEY: &str = "installId";
@@ -156,9 +156,11 @@ impl LicenseManager {
         }
         let hooks = options.testing.unwrap_or_default();
         let clock = hooks.clock.unwrap_or_else(|| Arc::new(SystemClock));
-        let transport = hooks
-            .transport
-            .unwrap_or_else(|| Arc::new(ReqwestTransport::new()));
+        let transport = hooks.transport.unwrap_or_else(|| {
+            Arc::new(ReqwestTransport::new(&transport::user_agent(
+                &options.framework,
+            )))
+        });
         let backend = hooks.secret_backend.unwrap_or_else(default_backend);
 
         let verifier = TokenVerifier::new(&options.public_key, &options.product_id, clock.clone())?;

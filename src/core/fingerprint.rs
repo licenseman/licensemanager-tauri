@@ -128,6 +128,8 @@ async fn read_native_machine_id() -> Option<String> {
 }
 
 /// `IOPlatformUUID` from `ioreg -rd1 -c IOPlatformExpertDevice` output.
+/// Only called on macOS, tested everywhere.
+#[cfg_attr(not(target_os = "macos"), allow(dead_code))]
 pub(crate) fn parse_darwin(output: &str) -> Option<String> {
     let (_, after) = output.split_once("IOPlatformUUID")?;
     let line = after.split('\n').next().unwrap_or_default();

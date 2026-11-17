@@ -182,6 +182,7 @@ impl Builder {
             api_base_url: self.api_base_url,
             storage_dirs: self.storage_dirs,
             runtime,
+            framework: framework(),
             testing: self.testing,
         }
     }
@@ -291,7 +292,9 @@ pub mod testing {
 
     /// The production HTTP transport.
     pub fn reqwest_transport() -> Arc<dyn Transport> {
-        Arc::new(crate::core::transport::ReqwestTransport::new())
+        Arc::new(crate::core::transport::ReqwestTransport::new(
+            &crate::core::transport::user_agent(&crate::framework()),
+        ))
     }
 
     /// The OS keyring backend, if available.
@@ -302,3 +305,8 @@ pub mod testing {
 
 #[cfg(test)]
 mod tests;
+
+/// Framework the SDK runs in, named in the User-Agent of validations.
+pub(crate) fn framework() -> String {
+    format!("tauri/{}", tauri::VERSION)
+}

@@ -32,12 +32,13 @@ pub trait Transport: Send + Sync + 'static {
 
 /// User agent sent to the license server, telling which SDK, runtime and OS the
 /// validation comes from, e.g.
-/// `licensemanager-tauri/0.1.0 (tauri/2.12.0; rust; macos aarch64)`.
-pub(crate) fn user_agent() -> String {
+/// `licensemanager-tauri/1.0.0 (tauri/2.12.0; rust; macos aarch64)`, given the
+/// `framework` (`tauri/2.12.0`).
+pub(crate) fn user_agent(framework: &str) -> String {
     format!(
-        "licensemanager-tauri/{} (tauri/{}; rust; {} {})",
+        "licensemanager-tauri/{} ({}; rust; {} {})",
         env!("CARGO_PKG_VERSION"),
-        tauri::VERSION,
+        framework,
         std::env::consts::OS,
         std::env::consts::ARCH,
     )
@@ -49,9 +50,9 @@ pub(crate) struct ReqwestTransport {
 }
 
 impl ReqwestTransport {
-    pub(crate) fn new() -> Self {
+    pub(crate) fn new(user_agent: &str) -> Self {
         let client = reqwest::Client::builder()
-            .user_agent(user_agent())
+            .user_agent(user_agent)
             .build()
             .ok();
         Self { client }
@@ -111,17 +112,15 @@ impl Transport for ReqwestTransport {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn user_agent_names_the_sdk_runtime_and_os() {
+    fn user_agent_names_the_sdk_framework_and_os() {
         assert_eq!(
-            super::user_agent(),
+            super::user_agent("tauri/2.12.0"),
             format!(
-                "licensemanager-tauri/{} (tauri/{}; rust; {} {})",
+                "licensemanager-tauri/{} (tauri/2.12.0; rust; {} {})",
                 env!("CARGO_PKG_VERSION"),
-                tauri::VERSION,
                 std::env::consts::OS,
                 std::env::consts::ARCH,
             )
         );
-        assert!(super::user_agent().starts_with("licensemanager-tauri/"));
     }
 }

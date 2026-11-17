@@ -27,6 +27,8 @@ pub(crate) struct LicenseManagerOptions {
     /// Tests only.
     pub storage_dirs: Option<Vec<PathBuf>>,
     pub runtime: tokio::runtime::Handle,
+    /// Framework the SDK runs in, named in the User-Agent, e.g. `tauri/2.12.0`.
+    pub framework: String,
     pub testing: Option<TestHooks>,
 }
 
@@ -50,6 +52,7 @@ impl LicenseManagerOptions {
             api_base_url: None,
             storage_dirs: None,
             runtime,
+            framework: "tauri/test".into(),
             testing: None,
         }
     }
