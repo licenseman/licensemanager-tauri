@@ -28,7 +28,7 @@ tokio = { version = "1.47", features = ["rt", "time", "sync", "macros", "process
 tokio-util = "0.7"
 futures = { version = "0.3", default-features = false, features = ["std", "async-await"] }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
-jsonwebtoken = { version = "11", default-features = false, features = ["rust_crypto"] }
+jsonwebtoken = { version = "12", default-features = false, features = ["rust_crypto"] }
 ed25519-dalek = { version = "3", features = ["pkcs8", "pem"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
